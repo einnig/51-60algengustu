@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>51 - 60 algengustu orðin í íslenskum námsbókum</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .word-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .icelandic-word {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+        .example-sentence {
+            font-size: 1.2em;
+            background-color: #e8f4f8;
+            padding: 10px;
+            border-left: 4px solid #2980b9;
+            margin-bottom: 15px;
+        }
+        .translations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            font-size: 0.95em;
+        }
+        .lang-title {
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Æfing 51 - 60 algengustu orðin í íslenskum námsbókum</h1>
+    
+    <div id="word-container">
+        <!-- Javascript mun setja orðin inn hér -->
+    </div>
+
+    <script>
+        // Hér er fylkið (array) sem þú getur afritað yfir í þinn gamla kóða ef þú vilt halda nákvæmlega sama útliti og þar
+        const words = [
+            {
+                word: "yfir",
+                example: "Ég labba <b>yfir</b> götuna.",
+                translations: {
+                    en: "over / across",
+                    pl: "przez / nad",
+                    uk: "через / над"
+                }
+            },
+            {
+                word: "getur",
+                example: "Þú <b>getur</b> talað íslensku!",
+                translations: {
+                    en: "can (you can)",
+                    pl: "możesz",
+                    uk: "можеш"
+                }
+            },
+            {
+                word: "vegna",
+                example: "Ég er heima <b>vegna</b> veðurs.",
+                translations: {
+                    en: "because of",
+                    pl: "z powodu",
+                    uk: "через (щось) / з причини"
+                }
+            },
+            {
+                word: "þeirra",
+                example: "Húsið <b>þeirra</b> er stórt.",
+                translations: {
+                    en: "their",
+                    pl: "ich",
+                    uk: "їхній"
+                }
+            },
+            {
+                word: "fram",
+                example: "Ég horfi <b>fram</b> á veginn.",
+                translations: {
+                    en: "forward / ahead",
+                    pl: "naprzód / do przodu",
+                    uk: "вперед"
+                }
+            },
+            {
+                word: "þær",
+                example: "<b>Þær</b> eru vinkonur mínar.",
+                translations: {
+                    en: "they (feminine)",
+                    pl: "one",
+                    uk: "вони (жін.)"
+                }
+            },
+            {
+                word: "allt",
+                example: "Ég borða <b>allt</b> á disknum.",
+                translations: {
+                    en: "everything / all",
+                    pl: "wszystko",
+                    uk: "все"
+                }
+            },
+            {
+                word: "líka",
+                example: "Ég vil <b>líka</b> læra íslensku.",
+                translations: {
+                    en: "also / too",
+                    pl: "też / również",
+                    uk: "також"
+                }
+            },
+            {
+                word: "þér",
+                example: "Ég gef <b>þér</b> epli.",
+                translations: {
+                    en: "you (dative)",
+                    pl: "ci / tobie",
+                    uk: "тобі"
+                }
+            },
+            {
+                word: "hafði",
+                example: "Ég <b>hafði</b> ekki tíma í gær.",
+                translations: {
+                    en: "had",
+                    pl: "miałem / miałam",
+                    uk: "мав / мала"
+                }
+            }
+        ];
+
+        const container = document.getElementById('word-container');
+
+        // Búum til HTML fyrir hvert orð úr fylkinu
+        words.forEach(item => {
+            const wordDiv = document.createElement('div');
+            wordDiv.className = 'word-card';
+            
+            wordDiv.innerHTML = `
+                <div class="icelandic-word">${item.word}</div>
+                <div class="example-sentence">${item.example}</div>
+                <div class="translations">
+                    <div><span class="lang-title">EN:</span> ${item.translations.en}</div>
+                    <div><span class="lang-title">PL:</span> ${item.translations.pl}</div>
+                    <div><span class="lang-title">UK:</span> ${item.translations.uk}</div>
+                </div>
+            `;
+            container.appendChild(wordDiv);
+        });
+    </script>
+</body>
+</html>
