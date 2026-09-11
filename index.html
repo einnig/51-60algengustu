@@ -3,173 +3,539 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>51 - 60 algengustu orðin í íslenskum námsbókum</title>
+    <title>Æfing 51 - 60 algengustu orðin í íslenskum námsbókum</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            background-color: #f0f4f8; 
+            margin: 0;
+            padding: 2vh 5vw; 
+            min-height: 95vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .container { 
+            width: 100%; 
+            max-width: 1200px; 
+            background: white; 
+            padding: 30px 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            max-height: 100%;
+            overflow-y: auto;
         }
         h1 {
-            text-align: center;
-            color: #2c3e50;
-        }
-        .word-card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            padding: 20px;
-        }
-        .icelandic-word {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #2980b9;
-            margin-bottom: 10px;
-        }
-        .example-sentence {
-            font-size: 1.2em;
-            background-color: #e8f4f8;
-            padding: 10px;
-            border-left: 4px solid #2980b9;
+            color: #1a73e8;
+            font-size: 2em;
+            margin-top: 0;
             margin-bottom: 15px;
         }
-        .translations {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            font-size: 0.95em;
+        /* Framvindustika */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            height: 20px;
         }
-        .lang-title {
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #34a853;
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        #target { 
+            font-size: 4em; 
+            margin: 10px 0; 
+            color: #222; 
             font-weight: bold;
-            color: #7f8c8d;
+        }
+        
+        #is-explanation {
+            font-size: 1.3em;
+            color: #333;
+            background-color: #e8f0fe;
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+            max-width: 80%;
+            line-height: 1.6;
+        }
+
+        .btn { 
+            padding: 12px 25px; 
+            font-size: 1.2em; 
+            margin: 5px; 
+            cursor: pointer; 
+            border: none; 
+            border-radius: 8px; 
+            background-color: #1a73e8; 
+            color: white; 
+            transition: 0.3s; 
+            font-weight: bold;
+        }
+        .btn:hover:not(:disabled) { background-color: #1557b0; transform: scale(1.02); }
+        .recording { background-color: #d93025; animation: pulse 1.5s infinite; }
+        .recording:hover { background-color: #b3140b; }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #media-box { 
+            font-size: 1.1em; 
+            color: #444; 
+            text-align: left; 
+            background: #f8fbff; 
+            padding: 15px 30px; 
+            border-radius: 12px; 
+            line-height: 1.8; 
+            border-left: 6px solid #1a73e8; 
+            margin-top: 15px;
+            display: inline-block;
+            min-width: 60%;
+        }
+        #spoken {
+            margin-top: 15px; 
+            font-size: 1.4em;
+            font-style: italic; 
+            color: #555;
+        }
+        #result {
+            font-weight: bold; 
+            font-size: 1.8em; 
+            margin-top: 5px; 
+            color: #1a73e8;
+        }
+        .nav-btns { margin-top: 20px; }
+        #counter { font-size: 1.2em; color: #666; font-weight: bold; margin-bottom: 10px; }
+        
+        /* Fyrir nafnainnslátt */
+        #studentName {
+            font-size: 1.5em;
+            padding: 10px;
+            margin: 20px 0;
+            width: 80%;
+            max-width: 400px;
+            border: 2px solid #1a73e8;
+            border-radius: 8px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
+<div class="container" id="app">
     <h1>Æfing 51 - 60 algengustu orðin í íslenskum námsbókum</h1>
     
-    <div id="word-container">
-        <!-- Javascript mun setja orðin inn hér -->
+    <div class="progress-container">
+        <div id="progress-bar"></div>
     </div>
 
-    <script>
-        // Hér er fylkið (array) sem þú getur afritað yfir í þinn gamla kóða ef þú vilt halda nákvæmlega sama útliti og þar
-        const words = [
-            {
-                word: "yfir",
-                example: "Ég labba <b>yfir</b> götuna.",
-                translations: {
-                    en: "over / across",
-                    pl: "przez / nad",
-                    uk: "через / над"
-                }
-            },
-            {
-                word: "getur",
-                example: "Þú <b>getur</b> talað íslensku!",
-                translations: {
-                    en: "can (you can)",
-                    pl: "możesz",
-                    uk: "можеш"
-                }
-            },
-            {
-                word: "vegna",
-                example: "Ég er heima <b>vegna</b> veðurs.",
-                translations: {
-                    en: "because of",
-                    pl: "z powodu",
-                    uk: "через (щось) / з причини"
-                }
-            },
-            {
-                word: "þeirra",
-                example: "Húsið <b>þeirra</b> er stórt.",
-                translations: {
-                    en: "their",
-                    pl: "ich",
-                    uk: "їхній"
-                }
-            },
-            {
-                word: "fram",
-                example: "Ég horfi <b>fram</b> á veginn.",
-                translations: {
-                    en: "forward / ahead",
-                    pl: "naprzód / do przodu",
-                    uk: "вперед"
-                }
-            },
-            {
-                word: "þær",
-                example: "<b>Þær</b> eru vinkonur mínar.",
-                translations: {
-                    en: "they (feminine)",
-                    pl: "one",
-                    uk: "вони (жін.)"
-                }
-            },
-            {
-                word: "allt",
-                example: "Ég borða <b>allt</b> á disknum.",
-                translations: {
-                    en: "everything / all",
-                    pl: "wszystko",
-                    uk: "все"
-                }
-            },
-            {
-                word: "líka",
-                example: "Ég vil <b>líka</b> læra íslensku.",
-                translations: {
-                    en: "also / too",
-                    pl: "też / również",
-                    uk: "також"
-                }
-            },
-            {
-                word: "þér",
-                example: "Ég gef <b>þér</b> epli.",
-                translations: {
-                    en: "you (dative)",
-                    pl: "ci / tobie",
-                    uk: "тобі"
-                }
-            },
-            {
-                word: "hafði",
-                example: "Ég <b>hafði</b> ekki tíma í gær.",
-                translations: {
-                    en: "had",
-                    pl: "miałem / miałam",
-                    uk: "мав / мала"
-                }
-            }
-        ];
+    <div id="counter"></div>
+    
+    <div id="target"></div>
+    <div id="is-explanation"></div>
+    <br>
+    <button id="record-btn" class="btn" onclick="toggleRecord()">🎤 Tala</button>
+    
+    <div id="spoken"></div>
+    <div id="result"></div>
 
-        const container = document.getElementById('word-container');
+    <div id="media-box"></div>
 
-        // Búum til HTML fyrir hvert orð úr fylkinu
-        words.forEach(item => {
-            const wordDiv = document.createElement('div');
-            wordDiv.className = 'word-card';
-            
-            wordDiv.innerHTML = `
-                <div class="icelandic-word">${item.word}</div>
-                <div class="example-sentence">${item.example}</div>
-                <div class="translations">
-                    <div><span class="lang-title">EN:</span> ${item.translations.en}</div>
-                    <div><span class="lang-title">PL:</span> ${item.translations.pl}</div>
-                    <div><span class="lang-title">UK:</span> ${item.translations.uk}</div>
-                </div>
+    <div class="nav-btns">
+        <button class="btn" style="background-color: #5f6368;" onclick="prevExercise()">⬅️ Fyrri</button>
+        <button class="btn" style="background-color: #5f6368;" onclick="nextExercise()">Næsta ➡️</button>
+    </div>
+</div>
+
+<script>
+const exerciseData = [
+    { 
+        text: "yfir", 
+        is_exp: "<b>Útskýring:</b> Forsetning sem þýðir að fara frá einum stað til annars yfir eitthvað (t.d. götu eða brú).<br><b>Dæmi:</b> Ég labba <b>yfir</b> götuna.",
+        translations: "<b>Enska (English):</b> Explanation: Preposition meaning across or over. Example: I walk <b>across</b> the street.<br>" +
+                      "<b>Pólska (Polski):</b> Objaśnienie: Przyimek oznaczający przez lub nad. Przykład: Przechodzę <b>przez</b> ulicę.<br>" +
+                      "<b>Spænska (Español):</b> Explicación: Preposición que significa a través de o sobre. Ejemplo: Camino <b>cruzando</b> la calle.<br>" +
+                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Giới từ có nghĩa là qua hoặc trên. Ví dụ: Tôi đi bộ <b>qua</b> đường.<br>" +
+                      "<b>Arabíska (العربية):</b> الشرح: حرف جر يعني عبر أو فوق. مثال: أمشي <b>عبر</b> الشارع.<br>" +
+                      "<b>Rússneska (Русский):</b> Объяснение: Предлог, означающий через или над. Пример: Я перехожу <b>через</b> улицу.<br>" +
+                      "<b>Úkraínska (Українська):</b> Пояснення: Прийменник, що означає через або над. Приклад: Я переходжу <b>через</b> вулицю.<br>" +
+                      "<b>Persneska (فارسی):</b> توضیح: حرف اضافه به معنی از این سو به آن سو یا روی. مثال: من <b>از عرض</b> خیابان رد می‌شوم."
+    },
+    { 
+        text: "getur", 
+        is_exp: "<b>Útskýring:</b> Sagnorðið „að geta“ í annarri persónu eintölu (þú). Þýðir að maður sé fær um eitthvað.<br><b>Dæmi:</b> Þú <b>getur</b> talað íslensku!",
+        translations: "<b>Enska (English):</b> Explanation: The verb 'can' (you can). Means being able to do something. Example: You <b>can</b> speak Icelandic!<br>" +
+                      "<b>Pólska (Polski):</b> Objaśnienie: Czasownik 'móc' w drugiej osobie (ty możesz). Przykład: Ty <b>możesz</b> mówić po islandzku!<br>" +
+                      "<b>Spænska (Español):</b> Explicación: El verbo 'poder' (tú puedes). Significa ser capaz de hacer algo. Ejemplo: ¡Tú <b>puedes</b> hablar islandés!<br>" +
+                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'có thể' (bạn có thể). Ví dụ: Bạn <b>có thể</b> nói tiếng Iceland!<br>" +
+                      "<b>Arabíska (العربية):</b> الشرح: الفعل 'تستطيع' (أنت تستطيع). يعني القدرة على فعل شيء. مثال: أنت <b>تستطيع</b> التحدث باللغة الأيسلندية!<br>" +
+                      "<b>Rússneska (Русский):</b> Объяснение: Глагол 'мочь' (ты можешь). Означает способность что-то делать. Пример: Ты <b>можешь</b> говорить по-исландски!<br>" +
+                      "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'могти' (ти можеш). Означає здатність щось робити. Приклад: Ти <b>можеш</b> розмовляти ісландською!<br>" +
+                      "<b>Persneska (فارسی):</b> توضیح: فعل «توانستن» (تو می‌توانی). به معنی قادر بودن به انجام کاری است. مثال: تو <b>می‌توانی</b> ایسلندی صحبت کنی!"
+    },
+    { 
+        text: "vegna", 
+        is_exp: "<b>Útskýring:</b> Forsetning eða tengiorð sem vísar til ástæðu (af hverju eitthvað gerist).<br><b>Dæmi:</b> Ég er heima <b>vegna</b> veðurs.",
+        translations: "<b>Enska (English):</b> Explanation: Preposition or conjunction indicating a reason (because of). Example: I am home <b>because of</b> the weather.<br>" +
+                      "<b>Pólska (Polski):</b> Objaśnienie: Przyimek wskazujący powód (z powodu). Przykład: Jestem w domu <b>z powodu</b> pogody.<br>" +
+                      "<b>Spænska (Español):</b> Explicación: Preposición que indica una razón (debido a / por). Ejemplo: Estoy en casa <b>debido al</b> clima.<br>" +
+                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Giới từ chỉ nguyên nhân (bởi vì). Ví dụ: Tôi ở nhà <b>vì</b> thời tiết.<br>" +
+                      "<b>Arabíska (العربية):</b> الشرح: حرف جر أو رابط يشير إلى السبب (بسبب). مثال: أنا في المنزل <b>بسبب</b> الطقس.<br>" +
+                      "<b>Rússneska (Русский):</b> Объяснение: Предлог или союз, указывающий на причину (из-за). Пример: Я дома <b>из-за</b> погоды.<br>" +
+                      "<b>Úkraínska (Українська):</b> Пояснення: Прийменник або сполучник, що вказує на причину (через). Приклад: Я вдома <b>через</b> погоду.<br>" +
+                      "<b>Persneska (فارسی):</b> توضیح: حرف اضافه یا ربط برای بیان دلیل (به دلیلِ). مثال: من <b>به دلیل</b> آب و هوا در خانه هستم."
+    },
+    { 
+        text: "þeirra", 
+        is_exp: "<b>Útskýring:</b> Eignarfornafn í fleirtölu. Vísar til þess að einhverjir (fleiri en einn) eigi eitthvað.<br><b>Dæmi:</b> Húsið <b>þeirra</b> er stórt.",
+        translations: "<b>Enska (English):</b> Explanation: Plural possessive pronoun (their). Refers to something owned by them. Example: <b>Their</b> house is big.<br>" +
+                      "<b>Pólska (Polski):</b> Objaśnienie: Zaimek dzierżawczy w liczbie mnogiej (ich). Przykład: <b>Ich</b> dom jest duży.<br>" +
+                      "<b>Spænska (Español):</b> Explicación: Pronombre posesivo plural (su / de ellos). Ejemplo: <b>Su</b> casa es grande.<br>" +
+                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ sở hữu số nhiều (của họ). Ví dụ: Ngôi nhà <b>của họ</b> rất lớn.<br>" +
+                      "<b>Arabíska (العربية):</b> الشرح: ضمير ملكية للجمع (لهم). مثال: منزلـ<b>ـهم</b> كبير.<br>" +
+                      "<b>Rússneska (Русский):</b> Объяснение: Притяжательное местоимение множественного числа (их). Пример: <b>Их</b> дом большой.<br>" +
+                      "<b>Úkraínska (Українська):</b> Пояснення: Присвійний займенник множини (їхній). Приклад: <b>Їхній</b> будинок великий.<br>" +
+                      "<b>Persneska (فارسی):</b> توضیح: ضمیر ملکی جمع (مال آن‌ها). مثال: خانه <b>آن‌ها</b> بزرگ است."
+    },
+    { 
+        text: "fram", 
+        is_exp: "<b>Útskýring:</b> Atviksorð sem táknar stefnu áfram eða beint af augum.<br><b>Dæmi:</b> Ég horfi <b>fram</b> á veginn.",
+        translations: "<b>Enska (English):</b> Explanation: Adverb indicating direction forward or straight ahead. Example: I look <b>forward</b> on the road.<br>" +
+                      "<b>Pólska (Polski):</b> Objaśnienie: Przysłówek oznaczający kierunek w przód. Przykład: Patrzę <b>przed</b> siebie na drogę.<br>" +
+                      "<b>Spænska (Español):</b> Explicación: Adverbio que indica dirección hacia adelante. Ejemplo: Miro hacia <b>adelante</b> en el camino.<br>" +
+                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Trạng từ chỉ hướng về phía trước. Ví dụ: Tôi nhìn <b>về phía trước</b> trên đường.<br>" +
+                      "<b>Arabíska (العربية):</b> الشرح: ظرف يشير إلى الاتجاه للأمام. مثال: أنا أنظر إلى <b>الأمام</b> على الطريق.<br>" +
+                      "<b>Rússneska (Русский):</b> Объяснение: Наречие, указывающее направление вперед. Пример: Я смотрю <b>вперед</b> на дорогу.<br>" +
+                      "<b>Úkraínska (Українська):</b> Пояснення: Прислівник, що вказує напрямок вперед. Приклад: Я дивлюся <b>вперед</b> на дорогу.<br>" +
+                      "<b>Persneska (فارسی):</b> توضیح: قید که جهت جلو را نشان می‌دهد. مثال: من به <b>جلو</b> در جاده نگاه می‌کنم."
+    },
+    { 
+        text: "þær", 
+        is_exp: "<b>Útskýring:</b> Persónufornafn í fleirtölu fyrir kvenkyn (fleiri en ein kona eða stelpa).<br><b>Dæmi:</b> <b>Þær</b> eru vinkonur mínar.",
+        translations: "<b>Enska (English):</b> Explanation: Plural personal pronoun for feminine (they). Example: <b>They</b> are my friends.<br>" +
+                      "<b>Pólska (Polski):</b> Objaśnienie: Zaimek osobowy w liczbie mnogiej dla rodzaju żeńskiego (one). Przykład: <b>One</b> są moimi przyjaciółkami.<br>" +
+                      "<b>Spænska (Español):</b> Explicación: Pronombre personal plural femenino (ellas). Ejemplo: <b>Ellas</b> son mis amigas.<br>" +
+                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ nhân xưng số nhiều cho nữ (các cô ấy/họ). Ví dụ: <b>Họ</b> là bạn của tôi.<br>" +
+                      "<b>Arabíska (العربية):</b> الشرح: ضمير شخصي لجمع المؤنث (هن). مثال: <b>هنّ</b> صديقاتي.<br>" +
+                      "<b>Rússneska (Русский):</b> Объяснение: Личное местоимение множественного числа женского рода (они). Пример: <b>Они</b> мои подруги.<br>" +
+                      "<b>Úkraínska (Українська):</b> Пояснення: Особовий займенник множини жіночого роду (вони). Приклад: <b>Вони</b> мої подруги.<br>" +
+                      "<b>Persneska (فارسی):</b> توضیح: ضمیر شخصی جمع برای مؤنث (آن‌ها). مثال: <b>آن‌ها</b> دوستان من هستند."
+    },
+    { 
+        text: "allt", 
+        is_exp: "<b>Útskýring:</b> Óákveðið fornafn, hvorugkyn eintala. Þýðir heildin af einhverju.<br><b>Dæmi:</b> Ég borða <b>allt</b> á disknum.",
+        translations: "<b>Enska (English):</b> Explanation: Indefinite pronoun meaning everything or all. Example: I eat <b>everything</b> on the plate.<br>" +
+                      "<b>Pólska (Polski):</b> Objaśnienie: Zaimek nieokreślony oznaczający 'wszystko'. Przykład: Zjadam <b>wszystko</b> z talerza.<br>" +
+                      "<b>Spænska (Español):</b> Explicación: Pronombre indefinido que significa 'todo'. Ejemplo: Me como <b>todo</b> en el plato.<br>" +
+                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ bất định có nghĩa là tất cả, mọi thứ. Ví dụ: Tôi ăn <b>tất cả</b> trên đĩa.<br>" +
+                      "<b>Arabíska (العربية):</b> الشرح: ضمير نكرة يعني كل شيء. مثال: أنا آكل <b>كل شيء</b> في الطبق.<br>" +
+                      "<b>Rússneska (Русский):</b> Объяснение: Неопределенное местоимение, означающее 'всё'. Пример: Я съедаю <b>всё</b> на тарелке.<br>" +
+                      "<b>Úkraínska (Українська):</b> Пояснення: Неозначений займенник, що означає 'все'. Приклад: Я з'їдаю <b>все</b> на тарілці.<br>" +
+                      "<b>Persneska (فارسی):</b> توضیح: ضمیر نامعین به معنی همه چیز یا کل. مثال: من <b>همه چیز</b> را در بشقاب می‌خورم."
+    },
+    { 
+        text: "líka", 
+        is_exp: "<b>Útskýring:</b> Atviksorð sem er notað til að bæta einhverju við (einnig).<br><b>Dæmi:</b> Ég vil <b>líka</b> læra íslensku.",
+        translations: "<b>Enska (English):</b> Explanation: Adverb meaning also or too. Example: I <b>also</b> want to learn Icelandic.<br>" +
+                      "<b>Pólska (Polski):</b> Objaśnienie: Przysłówek oznaczający też lub również. Przykład: Ja <b>też</b> chcę uczyć się islandzkiego.<br>" +
+                      "<b>Spænska (Español):</b> Explicación: Adverbio que significa también. Ejemplo: Yo <b>también</b> quiero aprender islandés.<br>" +
+                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Trạng từ có nghĩa là cũng. Ví dụ: Tôi <b>cũng</b> muốn học tiếng Iceland.<br>" +
+                      "<b>Arabíska (العربية):</b> الشرح: ظرف يعني أيضاً. مثال: أنا <b>أيضاً</b> أريد تعلم الأيسلندية.<br>" +
+                      "<b>Rússneska (Русский):</b> Объяснение: Наречие, означающее 'тоже' или 'также'. Пример: Я <b>тоже</b> хочу выучить исландский.<br>" +
+                      "<b>Úkraínska (Українська):</b> Пояснення: Прислівник, що означає 'також' або 'теж'. Приклад: Я <b>також</b> хочу вивчити ісландську.<br>" +
+                      "<b>Persneska (فارسی):</b> توضیح: قید به معنی همچنین یا نیز. مثال: من <b>هم</b> می‌خواهم ایسلندی یاد بگیرم."
+    },
+    { 
+        text: "þér", 
+        is_exp: "<b>Útskýring:</b> Persónufornafn („þú“) í þágufalli. Notað eftir ákveðin sagnorð eða forsetningar.<br><b>Dæmi:</b> Ég gef <b>þér</b> epli.",
+        translations: "<b>Enska (English):</b> Explanation: Personal pronoun 'you' in dative case. Example: I give <b>you</b> an apple.<br>" +
+                      "<b>Pólska (Polski):</b> Objaśnienie: Zaimek osobowy 'ty' w celowniku (ci / tobie). Przykład: Daję <b>ci</b> jabłko.<br>" +
+                      "<b>Spænska (Español):</b> Explicación: Pronombre personal 'tú' en caso dativo (te / a ti). Ejemplo: <b>Te</b> doy una manzana.<br>" +
+                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ nhân xưng 'bạn' ở cách tặng (cho bạn). Ví dụ: Tôi cho <b>bạn</b> một quả táo.<br>" +
+                      "<b>Arabíska (العربية):</b> الشرح: ضمير شخصي 'أنت' في حالة الجر (لك). مثال: أنا أعطيـ<b>ـك</b> تفاحة.<br>" +
+                      "<b>Rússneska (Русский):</b> Объяснение: Личное местоимение 'ты' в дательном падеже (тебе). Пример: Я даю <b>тебе</b> яблоко.<br>" +
+                      "<b>Úkraínska (Українська):</b> Пояснення: Особовий займенник 'ти' в давальному відмінку (тобі). Приклад: Я даю <b>тобі</b> яблуко.<br>" +
+                      "<b>Persneska (فارسی):</b> توضیح: ضمیر شخصی «تو» در حالت مفعولی باواسطه (به تو). مثال: من <b>به تو</b> یک سیب می‌دهم."
+    },
+    { 
+        text: "hafði", 
+        is_exp: "<b>Útskýring:</b> Sagnorðið „að hafa“ í þátíð (ég eða hann/hún).<br><b>Dæmi:</b> Ég <b>hafði</b> ekki tíma í gær.",
+        translations: "<b>Enska (English):</b> Explanation: The verb 'to have' in past tense (I or he/she had). Example: I <b>had</b> no time yesterday.<br>" +
+                      "<b>Pólska (Polski):</b> Objaśnienie: Czasownik 'mieć' w czasie przeszłym (miałem/miałam). Przykład: Nie <b>miałem</b> wczoraj czasu.<br>" +
+                      "<b>Spænska (Español):</b> Explicación: El verbo 'tener' en tiempo pasado (yo tenía/tuve). Ejemplo: Ayer no <b>tenía</b> tiempo.<br>" +
+                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'có' ở thì quá khứ (đã có). Ví dụ: Hôm qua tôi không <b>có</b> thời gian.<br>" +
+                      "<b>Arabíska (العربية):</b> الشرح: الفعل 'يملك' في الزمن الماضي (كان لدي). مثال: لم <b>يكن لدي</b> وقت البارحة.<br>" +
+                      "<b>Rússneska (Русский):</b> Объяснение: Глагол 'иметь' в прошедшем времени (у меня было). Пример: Вчера у меня не <b>было</b> времени.<br>" +
+                      "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'мати' в минулому часі (я мав). Приклад: Вчора я не <b>мав</b> часу.<br>" +
+                      "<b>Persneska (فارسی):</b> توضیح: فعل «داشتن» در زمان گذشته (داشتم). مثال: من دیروز وقت <b>نداشتم</b>."
+    }
+];
+
+let userScores = new Array(exerciseData.length).fill(null);
+let userSpoken = new Array(exerciseData.length).fill("");
+
+let currentIndex = 0;
+let recognition;
+let isRecording = false;
+let autoAdvanceTimer = null;
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.lang = 'is-IS';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    
+    // Slökkt sjálfkrafa þegar talningu eða þögn er lokið
+    recognition.onend = () => {
+        isRecording = false;
+        const btn = document.getElementById('record-btn');
+        if (btn) {
+            btn.innerText = "🎤 Tala";
+            btn.classList.remove('recording');
+        }
+        
+        // Hreinsa stöðutexta ef ekkert orð fannst
+        const resDiv = document.getElementById('result');
+        if (resDiv && resDiv.innerText === "Hlusta...") {
+            resDiv.innerText = "";
+        }
+    };
+} else {
+    alert("Þessi vafri styður ekki talgreiningu. Notaðu Chrome eða Edge á tölvu.");
+}
+
+window.onload = () => { 
+    updateUI(); 
+};
+
+function updateProgress() {
+    let correctCount = 0;
+    for (let i = 0; i < userScores.length; i++) {
+        if (userScores[i] === 100) {
+            correctCount++;
+        }
+    }
+    const percent = (correctCount / exerciseData.length) * 100;
+    document.getElementById('progress-bar').style.width = percent + '%';
+    return correctCount;
+}
+
+function findNextUnfinished() {
+    for (let i = 0; i < userScores.length; i++) {
+        if (userScores[i] !== 100) {
+            currentIndex = i;
+            break;
+        }
+    }
+    document.getElementById('app').innerHTML = `
+        <h1>Æfing 51 - 60 algengustu orðin í íslenskum námsbókum</h1>
+        <div class="progress-container"><div id="progress-bar"></div></div>
+        <div id="counter"></div>
+        <div id="target"></div>
+        <div id="is-explanation"></div>
+        <br>
+        <button id="record-btn" class="btn" onclick="toggleRecord()">🎤 Tala</button>
+        <div id="spoken"></div>
+        <div id="result"></div>
+        <div id="media-box"></div>
+        <div class="nav-btns">
+            <button class="btn" style="background-color: #5f6368;" onclick="prevExercise()">⬅️ Fyrri</button>
+            <button class="btn" style="background-color: #5f6368;" onclick="nextExercise()">Næsta ➡️</button>
+        </div>
+    `;
+    updateUI();
+}
+
+function updateUI() {
+    clearTimeout(autoAdvanceTimer); 
+    const correctCount = updateProgress();
+
+    if (currentIndex >= exerciseData.length) {
+        if (correctCount === exerciseData.length) {
+            document.getElementById('app').innerHTML = `
+                <div class="progress-container"><div id="progress-bar" style="width: 100%;"></div></div>
+                <h1 style="color: #34a853; font-size: 2.5em;">Frábært! Þú náðir 100% árangri! 🎉</h1>
+                <p style="font-size: 1.2em; color: #555;">Skrifaðu nafnið þitt hér að neðan til að sækja viðurkenningarskjalið þitt.</p>
+                <input type="text" id="studentName" placeholder="Skrifaðu nafnið þitt hér" autocomplete="off"><br>
+                <button id="cert-btn" class="btn" style="background-color: #1a73e8; font-size: 1.5em; padding: 15px 30px; margin-top: 10px;" onclick="downloadCert()">🏆 Sækja viðurkenningarskjal</button>
+                <br><br>
+                <button class="btn" style="background-color: #5f6368;" onclick="location.reload()">🔄 Byrja aftur</button>
             `;
-            container.appendChild(wordDiv);
-        });
-    </script>
+        } else {
+            document.getElementById('app').innerHTML = `
+                <div class="progress-container"><div id="progress-bar" style="width: ${(correctCount/exerciseData.length)*100}%;"></div></div>
+                <h1 style="color: #fbbc05; font-size: 2em;">Þú ert næstum því búin(n)!</h1>
+                <p style="font-size: 1.2em;">Þú hefur klárað ${correctCount} af ${exerciseData.length} orðum með 100% árangri.</p>
+                <p style="font-size: 1.1em; color: #555;">Farðu til baka og reyndu aftur við þau orð sem vantaði upp á til að fá skjalið.</p>
+                <button class="btn" style="background-color: #fbbc05; color: #000;" onclick="findNextUnfinished()">➡️ Fara á orð sem vantar</button>
+            `;
+        }
+        return;
+    }
+
+    const curr = exerciseData[currentIndex];
+    document.getElementById('target').innerHTML = curr.text;
+    document.getElementById('is-explanation').innerHTML = curr.is_exp;
+    document.getElementById('counter').innerText = `Orð ${currentIndex + 1} af ${exerciseData.length}`;
+    document.getElementById('media-box').innerHTML = curr.translations;
+
+    const savedScore = userScores[currentIndex];
+    const savedText = userSpoken[currentIndex];
+
+    if (savedScore !== null) {
+        document.getElementById('result').innerText = `Einkunn: ${savedScore}%`;
+        document.getElementById('spoken').innerText = `Þú sagðir: "${savedText}"`;
+    } else {
+        document.getElementById('result').innerText = "";
+        document.getElementById('spoken').innerText = "";
+    }
+}
+
+function nextExercise() {
+    currentIndex++;
+    updateUI();
+}
+
+function prevExercise() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        updateUI();
+    }
+}
+
+function toggleRecord() {
+    if (!recognition) return;
+
+    const btn = document.getElementById('record-btn');
+    if (isRecording) {
+        recognition.stop();
+    } else {
+        try {
+            recognition.start();
+            isRecording = true;
+            btn.innerText = "🛑 Hlusta...";
+            btn.classList.add('recording');
+            document.getElementById('result').innerText = "Hlusta...";
+            document.getElementById('spoken').innerText = "";
+        } catch(e) {
+            console.log("Villa í upptöku: " + e);
+        }
+    }
+}
+
+if (recognition) {
+    recognition.onresult = (event) => {
+        let spoken = event.results[0][0].transcript;
+        spoken = spoken.trim().toLowerCase(); 
+
+        document.getElementById('spoken').innerText = `Þú sagðir: "${spoken}"`;
+        
+        const targetWord = exerciseData[currentIndex].text.toLowerCase();
+        
+        let score = (spoken === targetWord) ? 100 : 0;
+        
+        if (spoken.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"").trim() === targetWord) {
+            score = 100;
+        }
+        
+        document.getElementById('result').innerText = `Einkunn: ${score}%`;
+
+        userScores[currentIndex] = score;
+        userSpoken[currentIndex] = spoken;
+        
+        updateProgress();
+
+        if (score === 100) {
+            autoAdvanceTimer = setTimeout(() => {
+                nextExercise();
+            }, 1000); // 1 sekúndu bið
+        }
+    };
+}
+
+function downloadCert() {
+    const studentNameInput = document.getElementById('studentName');
+    const studentName = studentNameInput ? studentNameInput.value.trim() : "";
+    
+    if (studentName === "") {
+        alert("Vinsamlegast skrifaðu nafnið þitt fyrst!");
+        return;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 900;
+    canvas.height = 600;
+    const ctx = canvas.getContext('2d');
+    
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.strokeStyle = '#1a73e8';
+    ctx.lineWidth = 15;
+    ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+
+    ctx.strokeStyle = '#fbbc05';
+    ctx.lineWidth = 5;
+    ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+    
+    ctx.fillStyle = '#1a73e8';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 50px Arial';
+    ctx.fillText('Viðurkenning', canvas.width / 2, 140);
+    
+    ctx.fillStyle = '#333333';
+    ctx.font = '24px Arial';
+    ctx.fillText('Þetta skjal staðfestir að', canvas.width / 2, 220);
+    
+    ctx.fillStyle = '#000000';
+    ctx.font = 'bold 45px Arial';
+    ctx.fillText(studentName, canvas.width / 2, 290);
+    
+    ctx.fillStyle = '#333333';
+    ctx.font = '24px Arial';
+    ctx.fillText('hefur lokið æfingunni með glæsibrag:', canvas.width / 2, 360);
+
+    ctx.fillStyle = '#1a73e8';
+    ctx.font = 'bold 26px Arial';
+    ctx.fillText('Æfing 51 - 60 algengustu orðin í íslenskum námsbókum', canvas.width / 2, 420);
+    
+    ctx.fillStyle = '#34a853';
+    ctx.font = 'italic 28px Arial';
+    ctx.fillText('Frábær árangur! Haltu áfram að æfa þig.', canvas.width / 2, 490);
+
+    const dateString = new Date().toLocaleDateString('is-IS');
+    ctx.fillStyle = '#666666';
+    ctx.font = '18px Arial';
+    ctx.fillText('Dagsetning: ' + dateString, canvas.width / 2, 540);
+    
+    const link = document.createElement('a');
+    link.download = `Vidurkenning_${studentName.replace(/\s+/g, '_')}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    
+    // Slekkur á takkanum til að koma í veg fyrir mörg skjöl
+    const btn = document.getElementById('cert-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = "✅ Skjal sótt";
+        btn.style.backgroundColor = "#5f6368";
+        btn.style.cursor = "not-allowed";
+        btn.style.opacity = "0.7";
+    }
+}
+</script>
+
 </body>
 </html>
