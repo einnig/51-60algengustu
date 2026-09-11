@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Æfing 51 - 60 algengustu orðin í íslenskum námsbókum</title>
+    <title>Markorð - Lota 2 - 51-60 algengustu</title>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -49,6 +49,27 @@
             transition: width 0.5s ease-in-out;
         }
         
+        #counter { font-size: 1.2em; color: #666; font-weight: bold; margin-bottom: 10px; }
+
+        .lang-selector {
+            margin-bottom: 20px;
+            background: #fff3e0;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            border: 1px solid #ffcc80;
+        }
+
+        .lang-selector select {
+            padding: 8px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            margin-left: 10px;
+            max-width: 300px;
+        }
+        
         #target { 
             font-size: 4em; 
             margin: 10px 0; 
@@ -57,7 +78,7 @@
         }
         
         #is-explanation {
-            font-size: 1.3em;
+            font-size: 1.2em;
             color: #333;
             background-color: #e8f0fe;
             padding: 15px 25px;
@@ -66,6 +87,7 @@
             margin-bottom: 20px;
             max-width: 80%;
             line-height: 1.6;
+            text-align: left;
         }
 
         .btn { 
@@ -97,11 +119,11 @@
             background: #f8fbff; 
             padding: 15px 30px; 
             border-radius: 12px; 
-            line-height: 1.8; 
+            line-height: 1.6; 
             border-left: 6px solid #1a73e8; 
             margin-top: 15px;
             display: inline-block;
-            min-width: 60%;
+            min-width: 70%;
         }
         #spoken {
             margin-top: 15px; 
@@ -116,7 +138,6 @@
             color: #1a73e8;
         }
         .nav-btns { margin-top: 20px; }
-        #counter { font-size: 1.2em; color: #666; font-weight: bold; margin-bottom: 10px; }
         
         /* Fyrir nafnainnslátt */
         #studentName {
@@ -134,10 +155,34 @@
 <body>
 
 <div class="container" id="app">
-    <h1>Æfing 51 - 60 algengustu orðin í íslenskum námsbókum</h1>
+    <h1>Markorð - Lota 2 - 51-60 algengustu</h1>
     
     <div class="progress-container">
         <div id="progress-bar"></div>
+    </div>
+
+    <div class="lang-selector">
+        <label for="languageSelect"><b>🌍 Veldu tungumál:</b></label>
+        <select id="languageSelect" onchange="updateUI()">
+            <option value="ar">Arabíska – العربية</option>
+            <option value="da">Danska – Dansk</option>
+            <option value="en" selected>Enska – English</option>
+            <option value="tl">Filippseyska – Tagalog / Filipino</option>
+            <option value="fr">Franska – Français</option>
+            <option value="lv">Lettneska – Latviešu</option>
+            <option value="lt">Litháíska – Lietuvių</option>
+            <option value="no">Norska – Norsk</option>
+            <option value="fa">Persneska – فارسی</option>
+            <option value="pt">Portúgalska – Português</option>
+            <option value="pl">Pólska – Polski</option>
+            <option value="ro">Rúmenska – Română</option>
+            <option value="ru">Rússneska – Русский</option>
+            <option value="es">Spænska – Español</option>
+            <option value="sv">Sænska – Svenska</option>
+            <option value="th">Tælenska – ภาษาไทย</option>
+            <option value="uk">Úkraínska – Українська</option>
+            <option value="vi">Víetnamska – Tiếng Việt</option>
+        </select>
     </div>
 
     <div id="counter"></div>
@@ -162,123 +207,243 @@
 const exerciseData = [
     { 
         text: "yfir", 
-        is_exp: "<b>Útskýring:</b> Forsetning sem þýðir að fara frá einum stað til annars yfir eitthvað (t.d. götu eða brú).<br><b>Dæmi:</b> Ég labba <b>yfir</b> götuna.",
-        translations: "<b>Enska (English):</b> Explanation: Preposition meaning across or over. Example: I walk <b>across</b> the street.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Przyimek oznaczający przez lub nad. Przykład: Przechodzę <b>przez</b> ulicę.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Preposición que significa a través de o sobre. Ejemplo: Camino <b>cruzando</b> la calle.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Giới từ có nghĩa là qua hoặc trên. Ví dụ: Tôi đi bộ <b>qua</b> đường.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: حرف جر يعني عبر أو فوق. مثال: أمشي <b>عبر</b> الشارع.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Предлог, означающий через или над. Пример: Я перехожу <b>через</b> улицу.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Прийменник, що означає через або над. Приклад: Я переходжу <b>через</b> вулицю.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: حرف اضافه به معنی از این سو به آن سو یا روی. مثال: من <b>از عرض</b> خیابان رد می‌شوم."
+        is_exp: "<b>Útskýring:</b> Að vera fyrir ofan eitthvað eða fara á milli staða.<br><b>Samheiti:</b> ofan á, um.<br><b>Dæmi:</b> Fuglinn flaug <b>yfir</b> húsið.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: أن تكون فوق شيء أو تتحرك عبره. مرادف: فوق. مثال: طار الطائر <b>فوق</b> المنزل.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: At være over noget eller bevæge sig på tværs. Synonym: ovenpå. Eksempel: Fuglen fløj <b>over</b> huset.",
+            "en": "<b>Enska (English):</b> Explanation: To be above something or move across. Synonym: above. Example: The bird flew <b>over</b> the house.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Maging sa ibabaw ng isang bagay o lumipat. Kasingkahulugan: sa itaas. Halimbawa: Lumipad ang ibon <b>sa ibabaw</b> ng bahay.",
+            "fr": "<b>Franska (Français):</b> Explication: Être au-dessus de quelque chose ou traverser. Synonyme: au-dessus. Exemple: L'oiseau a volé <b>au-dessus</b> de la maison.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Būt virs kaut kā vai pārvietoties. Sinonīms: virs. Piemērs: Putns lidoja <b>pāri</b> mājai.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Būti virš kažko ar judėti per. Sinonimas: virš. Pavyzdys: Paukštis praskrido <b>virš</b> namo.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Å være over noe eller bevege seg på tvers. Synonym: oppå. Eksempel: Fuglen fløy <b>over</b> huset.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: بالای چیزی بودن یا حرکت از روی چیزی. مترادف: روی. مثال: پرنده از <b>بالای</b> خانه پرواز کرد.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Estar acima de algo ou mover-se através. Sinônimo: acima. Exemplo: O pássaro voou <b>sobre</b> a casa.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Być nad czymś lub poruszać się nad. Synonim: nad. Przykład: Ptak przeleciał <b>nad</b> domem.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: A fi deasupra a ceva sau a traversa. Sinonim: deasupra. Exemplu: Pasărea a zburat <b>peste</b> casă.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Быть над чем-то или пересекать. Синоним: сверху. Пример: Птица пролетела <b>над</b> домом.",
+            "es": "<b>Spænska (Español):</b> Explicación: Estar por encima de algo o cruzar. Sinónimo: encima de. Ejemplo: El pájaro voló <b>sobre</b> la casa.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Att vara över något eller röra sig tvärsöver. Synonym: ovanpå. Exempel: Fågeln flög <b>över</b> huset.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: อยู่เหนือบางสิ่งบางอย่างหรือเคลื่อนที่ข้าม คำพ้องความหมาย: เหนือ ตัวอย่าง: นกบิน<b>เหนือ</b>บ้าน",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Бути над чимось або перетинати. Синонім: зверху. Приклад: Пташка пролетіла <b>над</b> будинком.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Ở trên cái gì đó hoặc di chuyển qua. Từ đồng nghĩa: bên trên. Ví dụ: Con chim bay <b>trên</b> ngôi nhà."
+        }
     },
     { 
         text: "getur", 
-        is_exp: "<b>Útskýring:</b> Sagnorðið „að geta“ í annarri persónu eintölu (þú). Þýðir að maður sé fær um eitthvað.<br><b>Dæmi:</b> Þú <b>getur</b> talað íslensku!",
-        translations: "<b>Enska (English):</b> Explanation: The verb 'can' (you can). Means being able to do something. Example: You <b>can</b> speak Icelandic!<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Czasownik 'móc' w drugiej osobie (ty możesz). Przykład: Ty <b>możesz</b> mówić po islandzku!<br>" +
-                      "<b>Spænska (Español):</b> Explicación: El verbo 'poder' (tú puedes). Significa ser capaz de hacer algo. Ejemplo: ¡Tú <b>puedes</b> hablar islandés!<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'có thể' (bạn có thể). Ví dụ: Bạn <b>có thể</b> nói tiếng Iceland!<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: الفعل 'تستطيع' (أنت تستطيع). يعني القدرة على فعل شيء. مثال: أنت <b>تستطيع</b> التحدث باللغة الأيسلندية!<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Глагол 'мочь' (ты можешь). Означает способность что-то делать. Пример: Ты <b>можешь</b> говорить по-исландски!<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'могти' (ти можеш). Означає здатність щось робити. Приклад: Ти <b>можеш</b> розмовляти ісландською!<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: فعل «توانستن» (تو می‌توانی). به معنی قادر بودن به انجام کاری است. مثال: تو <b>می‌توانی</b> ایسلندی صحبت کنی!"
+        is_exp: "<b>Útskýring:</b> Að hafa getu, hæfileika eða leyfi til að gera eitthvað.<br><b>Samheiti:</b> vera fær um, kunna.<br><b>Dæmi:</b> Þú <b>getur</b> gert þetta.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: أن تكون قادراً أو مسموحاً لك بفعل شيء. مرادف: يستطيع. مثال: أنت <b>تستطيع</b> فعل هذا.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: At have evnen eller tilladelsen til at gøre noget. Synonym: evne til. Eksempel: Du <b>kan</b> gøre dette.",
+            "en": "<b>Enska (English):</b> Explanation: Having the ability or permission to do something. Synonym: be able to. Example: You <b>can</b> do this.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: May kakayahan o pahintulot na gawin ang isang bagay. Kasingkahulugan: kaya. Halimbawa: <b>Kaya</b> mo itong gawin.",
+            "fr": "<b>Franska (Français):</b> Explication: Avoir la capacité ou la permission de faire quelque chose. Synonyme: être capable de. Exemple: Tu <b>peux</b> faire cela.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Būt spējīgam vai ar atļauju kaut ko darīt. Sinonīms: spēt. Piemērs: Tu <b>vari</b> to izdarīt.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Turėti gebėjimą ar leidimą kažką daryti. Sinonimas: sugebėti. Pavyzdys: Tu <b>gali</b> tai padaryti.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Å ha evnen eller tillatelsen til å gjøre noe. Synonym: være i stand til. Eksempel: Du <b>kan</b> gjøre dette.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: داشتن توانایی یا اجازه برای انجام کاری. مترادف: توانا بودن. مثال: تو <b>می‌توانی</b> این کار را انجام دهی.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Ter a capacidade ou permissão para fazer algo. Sinônimo: ser capaz de. Exemplo: Você <b>pode</b> fazer isso.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Mieć zdolność lub pozwolenie na zrobienie czegoś. Synonim: potrafić. Przykład: Ty <b>możesz</b> to zrobić.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: A avea capacitatea sau permisiunea de a face ceva. Sinonim: a fi capabil. Exemplu: Tu <b>poți</b> face asta.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Иметь способность или разрешение что-то сделать. Синоним: уметь. Пример: Ты <b>можешь</b> это сделать.",
+            "es": "<b>Spænska (Español):</b> Explicación: Tener la capacidad o permiso para hacer algo. Sinónimo: ser capaz de. Ejemplo: Tú <b>puedes</b> hacer esto.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Att ha förmågan eller tillåtelsen att göra något. Synonym: klara av. Exempel: Du <b>kan</b> göra detta.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: มีความสามารถหรือได้รับอนุญาตให้ทำบางสิ่ง คำพ้องความหมาย: สามารถ ตัวอย่าง: คุณ<b>สามารถ</b>ทำได้",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Мати здатність або дозвіл щось зробити. Синонім: вміти. Приклад: Ти <b>можеш</b> це зробити.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Có khả năng hoặc được phép làm điều gì đó. Từ đồng nghĩa: có khả năng. Ví dụ: Bạn <b>có thể</b> làm được điều này."
+        }
     },
     { 
         text: "vegna", 
-        is_exp: "<b>Útskýring:</b> Forsetning eða tengiorð sem vísar til ástæðu (af hverju eitthvað gerist).<br><b>Dæmi:</b> Ég er heima <b>vegna</b> veðurs.",
-        translations: "<b>Enska (English):</b> Explanation: Preposition or conjunction indicating a reason (because of). Example: I am home <b>because of</b> the weather.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Przyimek wskazujący powód (z powodu). Przykład: Jestem w domu <b>z powodu</b> pogody.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Preposición que indica una razón (debido a / por). Ejemplo: Estoy en casa <b>debido al</b> clima.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Giới từ chỉ nguyên nhân (bởi vì). Ví dụ: Tôi ở nhà <b>vì</b> thời tiết.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: حرف جر أو رابط يشير إلى السبب (بسبب). مثال: أنا في المنزل <b>بسبب</b> الطقس.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Предлог или союз, указывающий на причину (из-за). Пример: Я дома <b>из-за</b> погоды.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Прийменник або сполучник, що вказує на причину (через). Приклад: Я вдома <b>через</b> погоду.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: حرف اضافه یا ربط برای بیان دلیل (به دلیلِ). مثال: من <b>به دلیل</b> آب و هوا در خانه هستم."
+        is_exp: "<b>Útskýring:</b> Ástæðan fyrir einhverju (oft notað sem 'vegna þess að').<br><b>Samheiti:</b> út af, sökum.<br><b>Dæmi:</b> Ég er heima <b>vegna</b> þess að ég er veikur.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: السبب لشيء ما. مرادف: بسبب. مثال: أنا في المنزل <b>بسبب</b> أنني مريض.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Årsagen til noget. Synonym: på grund af. Eksempel: Jeg er hjemme, <b>fordi</b> jeg er syg.",
+            "en": "<b>Enska (English):</b> Explanation: The reason for something. Synonym: due to. Example: I am home <b>because</b> I am sick.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Ang dahilan ng isang bagay. Kasingkahulugan: dahil sa. Halimbawa: Nasa bahay ako <b>dahil</b> may sakit ako.",
+            "fr": "<b>Franska (Français):</b> Explication: La raison de quelque chose. Synonyme: à cause de. Exemple: Je suis à la maison <b>parce que</b> je suis malade.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Iemesls kaut kam. Sinonīms: tādēļ. Piemērs: Esmu mājās, <b>jo</b> esmu slims.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Kažko priežastis. Sinonimas: dėl to. Pavyzdys: Aš namuose, <b>nes</b> sergu.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Grunnen til noe. Synonym: på grunn av. Eksempel: Jeg er hjemme <b>fordi</b> jeg er syk.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: دلیل چیزی. مترادف: به خاطر. مثال: من در خانه هستم <b>زیرا</b> بیمارم.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: O motivo para algo. Sinônimo: devido a. Exemplo: Estou em casa <b>porque</b> estou doente.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Powód czegoś. Synonim: z powodu. Przykład: Jestem w domu, <b>ponieważ</b> jestem chory.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Motivul pentru ceva. Sinonim: din cauza. Exemplu: Sunt acasă <b>pentru că</b> sunt bolnav.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Причина чего-то. Синоним: из-за. Пример: Я дома, <b>потому что</b> я болен.",
+            "es": "<b>Spænska (Español):</b> Explicación: La razón de algo. Sinónimo: debido a. Ejemplo: Estoy en casa <b>porque</b> estoy enfermo.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Orsaken till något. Synonym: på grund av. Exempel: Jag är hemma <b>eftersom</b> jag är sjuk.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: เหตุผลของบางสิ่ง คำพ้องความหมาย: เนื่องจาก ตัวอย่าง: ฉันอยู่บ้าน<b>เพราะว่า</b>ฉันป่วย",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Причина чогось. Синонім: через. Приклад: Я вдома, <b>тому що</b> я хворий.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Lý do cho một cái gì đó. Từ đồng nghĩa: do. Ví dụ: Tôi ở nhà <b>bởi vì</b> tôi bị ốm."
+        }
     },
     { 
         text: "þeirra", 
-        is_exp: "<b>Útskýring:</b> Eignarfornafn í fleirtölu. Vísar til þess að einhverjir (fleiri en einn) eigi eitthvað.<br><b>Dæmi:</b> Húsið <b>þeirra</b> er stórt.",
-        translations: "<b>Enska (English):</b> Explanation: Plural possessive pronoun (their). Refers to something owned by them. Example: <b>Their</b> house is big.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Zaimek dzierżawczy w liczbie mnogiej (ich). Przykład: <b>Ich</b> dom jest duży.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Pronombre posesivo plural (su / de ellos). Ejemplo: <b>Su</b> casa es grande.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ sở hữu số nhiều (của họ). Ví dụ: Ngôi nhà <b>của họ</b> rất lớn.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: ضمير ملكية للجمع (لهم). مثال: منزلـ<b>ـهم</b> كبير.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Притяжательное местоимение множественного числа (их). Пример: <b>Их</b> дом большой.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Присвійний займенник множини (їхній). Приклад: <b>Їхній</b> будинок великий.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: ضمیر ملکی جمع (مال آن‌ها). مثال: خانه <b>آن‌ها</b> بزرگ است."
+        is_exp: "<b>Útskýring:</b> Eitthvað sem tilheyrir þeim (sýnir eign í fleirtölu).<br><b>Samheiti:</b> (sýnir að hópur fólks eigi eitthvað).<br><b>Dæmi:</b> Þetta er nýja húsið <b>þeirra</b>.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: شيء يخصهم. مرادف: خاصتهم. مثال: هذا هو منزلهم <b>الجديد</b> (منزلهم).</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Noget der tilhører dem. Synonym: ejet af dem. Eksempel: Dette er <b>deres</b> nye hus.",
+            "en": "<b>Enska (English):</b> Explanation: Something that belongs to them. Synonym: owned by them. Example: This is <b>their</b> new house.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Isang bagay na pag-aari nila. Kasingkahulugan: pag-aari nila. Halimbawa: Ito ang bago <b>nilang</b> bahay.",
+            "fr": "<b>Franska (Français):</b> Explication: Quelque chose qui leur appartient. Synonyme: à eux. Exemple: C'est <b>leur</b> nouvelle maison.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Kaut kas, kas pieder viņiem. Sinonīms: viņiem piederošs. Piemērs: Šī ir <b>viņu</b> jaunā māja.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Kažkas, kas priklauso jiems. Sinonimas: jiems priklausantis. Pavyzdys: Tai <b>jų</b> naujas namas.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Noe som tilhører dem. Synonym: eid av dem. Eksempel: Dette er <b>deres</b> nye hus.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: چیزی که متعلق به آن‌هاست. مترادف: مال آن‌ها. مثال: این خانه جدید <b>آن‌ها</b> است.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Algo que pertence a eles. Sinônimo: deles. Exemplo: Esta é a nova casa <b>deles</b>.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Coś, co do nich należy. Synonim: własność ich. Przykład: To jest <b>ich</b> nowy dom.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Ceva care le aparține. Sinonim: al lor. Exemplu: Aceasta este noua <b>lor</b> casă.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: То, что принадлежит им. Синоним: принадлежащее им. Пример: Это <b>их</b> новый дом.",
+            "es": "<b>Spænska (Español):</b> Explicación: Algo que les pertenece. Sinónimo: de ellos. Ejemplo: Esta es <b>su</b> nueva casa.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Något som tillhör dem. Synonym: ägs av dem. Exempel: Detta är <b>deras</b> nya hus.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: สิ่งที่เป็นของพวกเขา คำพ้องความหมาย: ของพวกเขา ตัวอย่าง: นี่คือบ้านใหม่<b>ของพวกเขา</b>",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Те, що їм належить. Синонім: належне їм. Приклад: Це <b>їхній</b> новий будинок.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Cái gì đó thuộc về họ. Từ đồng nghĩa: của họ. Ví dụ: Đây là ngôi nhà mới <b>của họ</b>."
+        }
     },
     { 
         text: "fram", 
-        is_exp: "<b>Útskýring:</b> Atviksorð sem táknar stefnu áfram eða beint af augum.<br><b>Dæmi:</b> Ég horfi <b>fram</b> á veginn.",
-        translations: "<b>Enska (English):</b> Explanation: Adverb indicating direction forward or straight ahead. Example: I look <b>forward</b> on the road.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Przysłówek oznaczający kierunek w przód. Przykład: Patrzę <b>przed</b> siebie na drogę.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Adverbio que indica dirección hacia adelante. Ejemplo: Miro hacia <b>adelante</b> en el camino.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Trạng từ chỉ hướng về phía trước. Ví dụ: Tôi nhìn <b>về phía trước</b> trên đường.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: ظرف يشير إلى الاتجاه للأمام. مثال: أنا أنظر إلى <b>الأمام</b> على الطريق.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Наречие, указывающее направление вперед. Пример: Я смотрю <b>вперед</b> на дорогу.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Прислівник, що вказує напрямок вперед. Приклад: Я дивлюся <b>вперед</b> на дорогу.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: قید که جهت جلو را نشان می‌دهد. مثال: من به <b>جلو</b> در جاده نگاه می‌کنم."
+        is_exp: "<b>Útskýring:</b> Að hreyfa sig áfram eða sýna sig.<br><b>Samheiti:</b> áfram, á sjónarsviðið.<br><b>Dæmi:</b> Hann kom <b>fram</b> á sviðið.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: التحرك إلى الأمام أو الظهور. مرادف: إلى الأمام. مثال: تقدم <b>إلى الأمام</b> على المسرح.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: At bevæge sig fremad eller vise sig. Synonym: fremad. Eksempel: Han kom <b>frem</b> på scenen.",
+            "en": "<b>Enska (English):</b> Explanation: To move forward or show oneself. Synonym: forward. Example: He came <b>forward</b> on the stage.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Upang sumulong o magpakita. Kasingkahulugan: pasulong. Halimbawa: Lumapit siya sa <b>harap</b> ng entablado.",
+            "fr": "<b>Franska (Français):</b> Explication: Avancer ou se montrer. Synonyme: en avant. Exemple: Il s'est avancé <b>en avant</b> sur la scène.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Virzīties uz priekšu vai parādīt sevi. Sinonīms: uz priekšu. Piemērs: Viņš iznāca <b>uz priekšu</b> uz skatuves.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Judėti pirmyn ar pasirodyti. Sinonimas: į priekį. Pavyzdys: Jis išėjo <b>į priekį</b> scenoje.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Å bevege seg fremover eller vise seg. Synonym: fremover. Eksempel: Han kom <b>frem</b> på scenen.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: حرکت به سمت جلو یا نشان دادن خود. مترادف: جلو. مثال: او روی صحنه به <b>جلو</b> آمد.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Mover-se para a frente ou mostrar-se. Sinônimo: para a frente. Exemplo: Ele veio <b>para a frente</b> no palco.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Poruszać się do przodu lub pokazywać się. Synonim: naprzód. Przykład: Wystąpił <b>naprzód</b> na scenie.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: A merge înainte sau a te arăta. Sinonim: înainte. Exemplu: A venit în <b>față</b> pe scenă.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Двигаться вперед или показать себя. Синоним: вперед. Пример: Он вышел <b>вперед</b> на сцене.",
+            "es": "<b>Spænska (Español):</b> Explicación: Moverse hacia adelante o mostrarse. Sinónimo: adelante. Ejemplo: Él dio un paso <b>adelante</b> en el escenario.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Att röra sig framåt eller visa sig. Synonym: framåt. Exempel: Han kom <b>fram</b> på scenen.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: ก้าวไปข้างหน้าหรือแสดงตัว คำพ้องความหมาย: ไปข้างหน้า ตัวอย่าง: เขาเดิน<b>ออกมาข้างหน้า</b>บนเวที",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Рухатися вперед або показувати себе. Синонім: вперед. Приклад: Він вийшов <b>вперед</b> на сцену.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Di chuyển lên phía trước hoặc lộ diện. Từ đồng nghĩa: phía trước. Ví dụ: Anh ấy đã tiến <b>lên phía trước</b> trên sân khấu."
+        }
     },
     { 
         text: "þær", 
-        is_exp: "<b>Útskýring:</b> Persónufornafn í fleirtölu fyrir kvenkyn (fleiri en ein kona eða stelpa).<br><b>Dæmi:</b> <b>Þær</b> eru vinkonur mínar.",
-        translations: "<b>Enska (English):</b> Explanation: Plural personal pronoun for feminine (they). Example: <b>They</b> are my friends.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Zaimek osobowy w liczbie mnogiej dla rodzaju żeńskiego (one). Przykład: <b>One</b> są moimi przyjaciółkami.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Pronombre personal plural femenino (ellas). Ejemplo: <b>Ellas</b> son mis amigas.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ nhân xưng số nhiều cho nữ (các cô ấy/họ). Ví dụ: <b>Họ</b> là bạn của tôi.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: ضمير شخصي لجمع المؤنث (هن). مثال: <b>هنّ</b> صديقاتي.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Личное местоимение множественного числа женского рода (они). Пример: <b>Они</b> мои подруги.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Особовий займенник множини жіночого роду (вони). Приклад: <b>Вони</b> мої подруги.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: ضمیر شخصی جمع برای مؤنث (آن‌ها). مثال: <b>آن‌ها</b> دوستان من هستند."
+        is_exp: "<b>Útskýring:</b> Persónufornafn notað um fleiri en eina konu eða kvenkyns orð.<br><b>Samheiti:</b> stelpurnar, konurnar.<br><b>Dæmi:</b> <b>Þær</b> eru mjög góðar vinkonur.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: ضمير للإناث في الجمع. مرادف: هن. مثال: <b>هن</b> صديقات حميمات جداً.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Pronomen brugt om mere end én kvinde. Synonym: de (kvinder). Eksempel: <b>De</b> er meget gode veninder.",
+            "en": "<b>Enska (English):</b> Explanation: Pronoun used for more than one woman. Synonym: they (female). Example: <b>They</b> are very good friends.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Panghalip na ginagamit para sa higit sa isang babae. Kasingkahulugan: sila. Halimbawa: <b>Sila</b> ay napakabuting magkakaibigan.",
+            "fr": "<b>Franska (Français):</b> Explication: Pronom utilisé pour plus d'une femme. Synonyme: elles. Exemple: <b>Elles</b> sont de très bonnes amies.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Vietniekvārds, ko lieto vairāk nekā vienai sievietei. Sinonīms: viņas. Piemērs: <b>Viņas</b> ir ļoti labas draudzenes.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Įvardis, naudojamas daugiau nei vienai moteriai. Sinonimas: jos. Pavyzdys: <b>Jos</b> yra labai geros draugės.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Pronomen brukt om mer enn en kvinne. Synonym: de (kvinner). Eksempel: <b>De</b> er veldig gode venninner.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: ضمیر برای بیش از یک زن. مترادف: آن‌ها (مونث). مثال: <b>آن‌ها</b> دوستان بسیار خوبی هستند.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Pronome usado para mais de uma mulher. Sinônimo: elas. Exemplo: <b>Elas</b> são muito boas amigas.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Zaimek używany dla więcej niż jednej kobiety. Synonim: one. Przykład: <b>One</b> są bardzo dobrymi przyjaciółkami.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Pronume folosit pentru mai multe femei. Sinonim: ele. Exemplu: <b>Ele</b> sunt prietene foarte bune.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Местоимение для нескольких женщин. Синоним: они. Пример: <b>Они</b> очень хорошие подруги.",
+            "es": "<b>Spænska (Español):</b> Explicación: Pronombre usado para más de una mujer. Sinónimo: ellas. Ejemplo: <b>Ellas</b> son muy buenas amigas.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Pronomen som används för mer än en kvinna. Synonym: de (kvinnor). Exempel: <b>De</b> är mycket goda vänner.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: สรรพนามที่ใช้สำหรับผู้หญิงหลายคน คำพ้องความหมาย: พวกเธอ ตัวอย่าง: <b>พวกเธอ</b>เป็นเพื่อนที่ดีต่อกันมาก",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Займенник для кількох жінок. Синонім: вони. Приклад: <b>Вони</b> дуже хороші подруги.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ dùng cho nhiều hơn một phụ nữ. Từ đồng nghĩa: các cô ấy. Ví dụ: <b>Các cô ấy</b> là những người bạn rất tốt."
+        }
     },
     { 
         text: "allt", 
-        is_exp: "<b>Útskýring:</b> Óákveðið fornafn, hvorugkyn eintala. Þýðir heildin af einhverju.<br><b>Dæmi:</b> Ég borða <b>allt</b> á disknum.",
-        translations: "<b>Enska (English):</b> Explanation: Indefinite pronoun meaning everything or all. Example: I eat <b>everything</b> on the plate.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Zaimek nieokreślony oznaczający 'wszystko'. Przykład: Zjadam <b>wszystko</b> z talerza.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Pronombre indefinido que significa 'todo'. Ejemplo: Me como <b>todo</b> en el plato.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ bất định có nghĩa là tất cả, mọi thứ. Ví dụ: Tôi ăn <b>tất cả</b> trên đĩa.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: ضمير نكرة يعني كل شيء. مثال: أنا آكل <b>كل شيء</b> في الطبق.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Неопределенное местоимение, означающее 'всё'. Пример: Я съедаю <b>всё</b> на тарелке.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Неозначений займенник, що означає 'все'. Приклад: Я з'їдаю <b>все</b> на тарілці.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: ضمیر نامعین به معنی همه چیز یا کل. مثال: من <b>همه چیز</b> را در بشقاب می‌خورم."
+        is_exp: "<b>Útskýring:</b> Sérhver hlutur eða heildin af einhverju (ekkert skilið eftir).<br><b>Samheiti:</b> öll heildin.<br><b>Dæmi:</b> Hann borðaði <b>allt</b> á disknum.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: كل شيء أو بأكمله. مرادف: الكل. مثال: أكل <b>كل شيء</b> في الطبق.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Hver eneste ting eller helheden. Synonym: hele baduljen. Eksempel: Han spiste <b>alt</b> på tallerkenen.",
+            "en": "<b>Enska (English):</b> Explanation: Every single thing or the whole of something. Synonym: whole. Example: He ate <b>everything</b> on the plate.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Bawat bagay o ang kabuuan ng isang bagay. Kasingkahulugan: kabuuan. Halimbawa: Kinain niya <b>lahat</b> sa plato.",
+            "fr": "<b>Franska (Français):</b> Explication: Chaque chose ou la totalité de quelque chose. Synonyme: totalité. Exemple: Il a <b>tout</b> mangé dans l'assiette.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Katra lieta vai visa kopums. Sinonīms: kopums. Piemērs: Viņš apēda <b>visu</b> uz šķīvja.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Kiekvienas dalykas ar visa visuma. Sinonimas: visuma. Pavyzdys: Jis suvalgė <b>viską</b> lėkštėje.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Hver eneste ting eller helheten av noe. Synonym: det hele. Eksempel: Han spiste <b>alt</b> på tallerkenen.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: تک تک چیزها یا کل چیزی. مترادف: تمام. مثال: او <b>همه چیز</b> را در بشقاب خورد.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Cada coisa ou a totalidade de algo. Sinônimo: totalidade. Exemplo: Ele comeu <b>tudo</b> no prato.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Każda rzecz lub całość czegoś. Synonim: całość. Przykład: Zjadł <b>wszystko</b> na talerzu.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Fiecare lucru sau totalitatea a ceva. Sinonim: întregul. Exemplu: A mâncat <b>totul</b> de pe farfurie.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Каждая вещь или всё в целом. Синоним: целиком. Пример: Он съел <b>всё</b> на тарелке.",
+            "es": "<b>Spænska (Español):</b> Explicación: Cada cosa o la totalidad de algo. Sinónimo: totalidad. Ejemplo: Se comió <b>todo</b> en el plato.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Varje sak eller helheten av något. Synonym: det hela. Exempel: Han åt <b>allt</b> på tallriken.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: ทุกสิ่งทุกอย่าง หรือทั้งหมดของบางสิ่ง คำพ้องความหมาย: ทั้งหมด ตัวอย่าง: เขากิน<b>ทุกอย่าง</b>บนจาน",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Кожна річ або все в цілому. Синонім: цілком. Приклад: Він з'їв <b>все</b> на тарілці.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Mọi thứ hoặc toàn bộ một cái gì đó. Từ đồng nghĩa: toàn bộ. Ví dụ: Anh ấy đã ăn <b>tất cả</b> trên đĩa."
+        }
     },
     { 
         text: "líka", 
-        is_exp: "<b>Útskýring:</b> Atviksorð sem er notað til að bæta einhverju við (einnig).<br><b>Dæmi:</b> Ég vil <b>líka</b> læra íslensku.",
-        translations: "<b>Enska (English):</b> Explanation: Adverb meaning also or too. Example: I <b>also</b> want to learn Icelandic.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Przysłówek oznaczający też lub również. Przykład: Ja <b>też</b> chcę uczyć się islandzkiego.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Adverbio que significa también. Ejemplo: Yo <b>también</b> quiero aprender islandés.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Trạng từ có nghĩa là cũng. Ví dụ: Tôi <b>cũng</b> muốn học tiếng Iceland.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: ظرف يعني أيضاً. مثال: أنا <b>أيضاً</b> أريد تعلم الأيسلندية.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Наречие, означающее 'тоже' или 'также'. Пример: Я <b>тоже</b> хочу выучить исландский.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Прислівник, що означає 'також' або 'теж'. Приклад: Я <b>також</b> хочу вивчити ісландську.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: قید به معنی همچنین یا نیز. مثال: من <b>هم</b> می‌خواهم ایسلندی یاد بگیرم."
+        is_exp: "<b>Útskýring:</b> Einnig, til viðbótar við eitthvað annað.<br><b>Samheiti:</b> einnig.<br><b>Dæmi:</b> Ég vil <b>líka</b> koma með.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: أيضاً، بالإضافة إلى شيء آخر. مرادف: كذلك. مثال: أنا <b>أيضاً</b> أريد أن آتي.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Også, i tillæg til. Synonym: desuden. Eksempel: Jeg vil <b>også</b> med.",
+            "en": "<b>Enska (English):</b> Explanation: Also, in addition to something else. Synonym: additionally. Example: I <b>also</b> want to come along.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Bukod pa rito. Kasingkahulugan: pati. Halimbawa: Gusto ko <b>ring</b> sumama.",
+            "fr": "<b>Franska (Français):</b> Explication: Aussi, en plus de quelque chose d'autre. Synonyme: également. Exemple: Je veux <b>aussi</b> venir avec vous.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Arī, papildus kaut kam citam. Sinonīms: turklāt. Piemērs: Es <b>arī</b> gribu nākt līdzi.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Taip pat, be kažko kito. Sinonimas: be to. Pavyzdys: Aš <b>taip pat</b> noriu eiti kartu.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Også, i tillegg til noe annet. Synonym: dessuten. Eksempel: Jeg vil <b>også</b> være med.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: همچنین، علاوه بر چیز دیگر. مترادف: نیز. مثال: من <b>همچنین</b> می‌خواهم همراه بیایم.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Também, além de algo mais. Sinônimo: adicionalmente. Exemplo: Eu <b>também</b> quero ir junto.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Także, jako dodatek do czegoś innego. Synonim: również. Przykład: Ja <b>też</b> chcę pójść z wami.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: De asemenea, în plus față de altceva. Sinonim: în plus. Exemplu: Vreau <b>de asemenea</b> să vin cu tine.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Также, в дополнение к чему-то. Синоним: кроме того. Пример: Я <b>тоже</b> хочу пойти с вами.",
+            "es": "<b>Spænska (Español):</b> Explicación: También, además de algo más. Sinónimo: adicionalmente. Ejemplo: Yo <b>también</b> quiero ir.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Också, som tillägg till något annat. Synonym: dessutom. Exempel: Jag vill <b>också</b> följa med.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: ด้วย, นอกเหนือจากสิ่งอื่น คำพ้องความหมาย: เช่นกัน ตัวอย่าง: ฉันต้องการไป<b>ด้วย</b>",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Також, на додаток до чогось. Синонім: крім того. Приклад: Я <b>також</b> хочу піти з вами.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Cũng, ngoài một cái gì đó khác. Từ đồng nghĩa: thêm vào đó. Ví dụ: Tôi <b>cũng</b> muốn đi cùng."
+        }
     },
     { 
         text: "þér", 
-        is_exp: "<b>Útskýring:</b> Persónufornafn („þú“) í þágufalli. Notað eftir ákveðin sagnorð eða forsetningar.<br><b>Dæmi:</b> Ég gef <b>þér</b> epli.",
-        translations: "<b>Enska (English):</b> Explanation: Personal pronoun 'you' in dative case. Example: I give <b>you</b> an apple.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Zaimek osobowy 'ty' w celowniku (ci / tobie). Przykład: Daję <b>ci</b> jabłko.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Pronombre personal 'tú' en caso dativo (te / a ti). Ejemplo: <b>Te</b> doy una manzana.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ nhân xưng 'bạn' ở cách tặng (cho bạn). Ví dụ: Tôi cho <b>bạn</b> một quả táo.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: ضمير شخصي 'أنت' في حالة الجر (لك). مثال: أنا أعطيـ<b>ـك</b> تفاحة.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Личное местоимение 'ты' в дательном падеже (тебе). Пример: Я даю <b>тебе</b> яблоко.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Особовий займенник 'ти' в давальному відмінку (тобі). Приклад: Я даю <b>тобі</b> яблуко.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: ضمیر شخصی «تو» در حالت مفعولی باواسطه (به تو). مثال: من <b>به تو</b> یک سیب می‌دهم."
+        is_exp: "<b>Útskýring:</b> Persónufornafn (þú) þegar það stendur í þágufalli.<br><b>Samheiti:</b> þig (í öðru falli).<br><b>Dæmi:</b> Hvernig líður <b>þér</b> í dag?",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: ضمير (أنت) في حالة المفعول أو الجر. مرادف: إياك. مثال: كيف تشعر <b>بك</b> اليوم؟ (كيف حالك؟)</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Pronomen (du) i dativ. Synonym: dig. Eksempel: Hvordan har <b>du</b> (det) i dag?",
+            "en": "<b>Enska (English):</b> Explanation: Pronoun (you) in the dative case. Synonym: you. Example: How are <b>you</b> feeling today?",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Panghalip (ikaw) sa dative case. Kasingkahulugan: sa iyo. Halimbawa: Ano ang pakiramdam <b>mo</b> ngayon?",
+            "fr": "<b>Franska (Français):</b> Explication: Pronom (tu) au datif. Synonyme: te. Exemple: Comment <b>te</b> sens-tu aujourd'hui ?",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Vietniekvārds (tu) datīvā. Sinonīms: tev. Piemērs: Kā <b>tev</b> šodien klājas?",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Įvardis (tu) naudininko linksnyje. Sinonimas: tau. Pavyzdys: Kaip <b>tu</b> šiandien jautiesi?",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Pronomen (du) i dativ. Synonym: deg. Eksempel: Hvordan har <b>du</b> (det) i dag?",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: ضمیر (تو) در حالت مفعولی. مترادف: به تو. مثال: امروز حالت چطور است <b>(تو)</b>؟</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Pronome (você) no caso dativo. Sinônimo: te. Exemplo: Como <b>você</b> está se sentindo hoje?",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Zaimek (ty) w celowniku. Synonim: ci. Przykład: Jak się <b>ci</b> (ty) dzisiaj czujesz?",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Pronume (tu) în cazul dativ. Sinonim: ție. Exemplu: Cum <b>te</b> simți astăzi?",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Местоимение (ты) в дательном падеже. Синоним: тебе. Пример: Как <b>тебе</b> (ты) сегодня?",
+            "es": "<b>Spænska (Español):</b> Explicación: Pronombre (tú) en caso dativo. Sinónimo: te. Ejemplo: ¿Cómo <b>te</b> sientes hoy?",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Pronomen (du) i dativ. Synonym: dig. Exempel: Hur mår <b>du</b> i dag?",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: สรรพนาม (คุณ) ในรูปกรรม คำพ้องความหมาย: คุณ ตัวอย่าง: วันนี้<b>คุณ</b>รู้สึกอย่างไรบ้าง?",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Займенник (ти) у давальному відмінку. Синонім: тобі. Приклад: Як <b>тобі</b> (ти) сьогодні?",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ (bạn) ở cách tặng cách. Từ đồng nghĩa: bạn. Ví dụ: Hôm nay <b>bạn</b> cảm thấy thế nào?"
+        }
     },
     { 
         text: "hafði", 
-        is_exp: "<b>Útskýring:</b> Sagnorðið „að hafa“ í þátíð (ég eða hann/hún).<br><b>Dæmi:</b> Ég <b>hafði</b> ekki tíma í gær.",
-        translations: "<b>Enska (English):</b> Explanation: The verb 'to have' in past tense (I or he/she had). Example: I <b>had</b> no time yesterday.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Czasownik 'mieć' w czasie przeszłym (miałem/miałam). Przykład: Nie <b>miałem</b> wczoraj czasu.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: El verbo 'tener' en tiempo pasado (yo tenía/tuve). Ejemplo: Ayer no <b>tenía</b> tiempo.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'có' ở thì quá khứ (đã có). Ví dụ: Hôm qua tôi không <b>có</b> thời gian.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: الفعل 'يملك' في الزمن الماضي (كان لدي). مثال: لم <b>يكن لدي</b> وقت البارحة.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Глагол 'иметь' в прошедшем времени (у меня было). Пример: Вчера у меня не <b>было</b> времени.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'мати' в минулому часі (я мав). Приклад: Вчора я не <b>мав</b> часу.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: فعل «داشتن» در زمان گذشته (داشتم). مثال: من دیروز وقت <b>نداشتم</b>."
+        is_exp: "<b>Útskýring:</b> Sögnin 'að hafa' í þátíð (eitthvað sem var áður eða hefur verið gert).<br><b>Samheiti:</b> átti.<br><b>Dæmi:</b> Hann <b>hafði</b> aldrei séð þetta áður.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: الفعل 'يمتلك' في الماضي. مرادف: كان يملك. مثال: لم <b>يكن قد</b> رأى هذا من قبل.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Udsagnsordet 'at have' i datid. Synonym: ejede. Eksempel: Han <b>havde</b> aldrig set dette før.",
+            "en": "<b>Enska (English):</b> Explanation: The verb 'to have' in past tense. Synonym: owned. Example: He <b>had</b> never seen this before.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Ang pandiwang 'magkaroon' sa nakaraang panahunan. Kasingkahulugan: nagkaroon. Halimbawa: Hindi pa niya ito nakita <b>noon</b>.",
+            "fr": "<b>Franska (Français):</b> Explication: Le verbe 'avoir' au passé. Synonyme: possédait. Exemple: Il n'<b>avait</b> jamais vu cela auparavant.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds 'būt' (piederēt) pagātnē. Sinonīms: piederēja. Piemērs: Viņš to <b>bija</b> nekad iepriekš neredzējis.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Veiksmažodis 'turėti' būtajame laike. Sinonimas: turėjo. Pavyzdys: Jis niekada to <b>nebuvo</b> matęs.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Verbet 'å ha' i fortid. Synonym: eide. Eksempel: Han <b>hadde</b> aldri sett dette før.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: فعل 'داشتن' در زمان گذشته. مترادف: دارا بود. مثال: او قبلاً این را ندیده <b>بود (داشت)</b>.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: O verbo 'ter' no passado. Sinônimo: possuiu. Exemplo: Ele nunca <b>tinha</b> visto isso antes.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Czasownik 'mieć' w czasie przeszłym. Synonim: posiadał. Przykład: On nigdy wcześniej tego nie widział (nie <b>miał</b> widzianego).",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Verbul 'a avea' la timpul trecut. Sinonim: deținea. Exemplu: El nu <b>mai</b> văzuse asta niciodată.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Глагол 'иметь' в прошедшем времени. Синоним: владел. Пример: Он никогда <b>не</b> видел этого раньше (со вспомогательным глаголом).",
+            "es": "<b>Spænska (Español):</b> Explicación: El verbo 'tener' (o haber) en pasado. Sinónimo: poseía. Ejemplo: Él nunca <b>había</b> visto esto antes.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Verbet 'att ha' i dåtid. Synonym: ägde. Exempel: Han <b>hade</b> aldrig sett detta förut.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: คำกริยา 'มี' ในอดีตกาล คำพ้องความหมาย: เคยมี ตัวอย่าง: เขาไม่<b>เคย</b>เห็นสิ่งนี้มาก่อน",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'мати' в минулому часі. Синонім: володів. Приклад: Він ніколи <b>не</b> бачив цього раніше.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'có' ở thì quá khứ. Từ đồng nghĩa: sở hữu. Ví dụ: Anh ấy <b>chưa từng</b> (đã không) nhìn thấy điều này trước đây."
+        }
     }
 ];
 
@@ -289,6 +454,7 @@ let currentIndex = 0;
 let recognition;
 let isRecording = false;
 let autoAdvanceTimer = null;
+let hasDownloadedCert = false;
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 if (SpeechRecognition) {
@@ -297,7 +463,6 @@ if (SpeechRecognition) {
     recognition.continuous = false;
     recognition.interimResults = false;
     
-    // Slökkt sjálfkrafa þegar talningu eða þögn er lokið
     recognition.onend = () => {
         isRecording = false;
         const btn = document.getElementById('record-btn');
@@ -306,7 +471,6 @@ if (SpeechRecognition) {
             btn.classList.remove('recording');
         }
         
-        // Hreinsa stöðutexta ef ekkert orð fannst
         const resDiv = document.getElementById('result');
         if (resDiv && resDiv.innerText === "Hlusta...") {
             resDiv.innerText = "";
@@ -328,7 +492,11 @@ function updateProgress() {
         }
     }
     const percent = (correctCount / exerciseData.length) * 100;
-    document.getElementById('progress-bar').style.width = percent + '%';
+    
+    const progressBar = document.getElementById('progress-bar');
+    if(progressBar) {
+        progressBar.style.width = percent + '%';
+    }
     return correctCount;
 }
 
@@ -339,9 +507,35 @@ function findNextUnfinished() {
             break;
         }
     }
+    
     document.getElementById('app').innerHTML = `
-        <h1>Æfing 51 - 60 algengustu orðin í íslenskum námsbókum</h1>
+        <h1>Markorð - Lota 2 - 51-60 algengustu</h1>
         <div class="progress-container"><div id="progress-bar"></div></div>
+        
+        <div class="lang-selector">
+            <label for="languageSelect"><b>🌍 Veldu tungumál:</b></label>
+            <select id="languageSelect" onchange="updateUI()">
+                <option value="ar">Arabíska – العربية</option>
+                <option value="da">Danska – Dansk</option>
+                <option value="en" selected>Enska – English</option>
+                <option value="tl">Filippseyska – Tagalog / Filipino</option>
+                <option value="fr">Franska – Français</option>
+                <option value="lv">Lettneska – Latviešu</option>
+                <option value="lt">Litháíska – Lietuvių</option>
+                <option value="no">Norska – Norsk</option>
+                <option value="fa">Persneska – فارسی</option>
+                <option value="pt">Portúgalska – Português</option>
+                <option value="pl">Pólska – Polski</option>
+                <option value="ro">Rúmenska – Română</option>
+                <option value="ru">Rússneska – Русский</option>
+                <option value="es">Spænska – Español</option>
+                <option value="sv">Sænska – Svenska</option>
+                <option value="th">Tælenska – ภาษาไทย</option>
+                <option value="uk">Úkraínska – Українська</option>
+                <option value="vi">Víetnamska – Tiếng Việt</option>
+            </select>
+        </div>
+
         <div id="counter"></div>
         <div id="target"></div>
         <div id="is-explanation"></div>
@@ -368,10 +562,12 @@ function updateUI() {
                 <div class="progress-container"><div id="progress-bar" style="width: 100%;"></div></div>
                 <h1 style="color: #34a853; font-size: 2.5em;">Frábært! Þú náðir 100% árangri! 🎉</h1>
                 <p style="font-size: 1.2em; color: #555;">Skrifaðu nafnið þitt hér að neðan til að sækja viðurkenningarskjalið þitt.</p>
-                <input type="text" id="studentName" placeholder="Skrifaðu nafnið þitt hér" autocomplete="off"><br>
-                <button id="cert-btn" class="btn" style="background-color: #1a73e8; font-size: 1.5em; padding: 15px 30px; margin-top: 10px;" onclick="downloadCert()">🏆 Sækja viðurkenningarskjal</button>
+                <input type="text" id="studentName" placeholder="Skrifaðu nafnið þitt hér" autocomplete="off" ${hasDownloadedCert ? 'disabled' : ''}><br>
+                <button id="cert-btn" class="btn" style="background-color: ${hasDownloadedCert ? '#5f6368' : '#1a73e8'}; font-size: 1.5em; padding: 15px 30px; margin-top: 10px; cursor: ${hasDownloadedCert ? 'not-allowed' : 'pointer'}; opacity: ${hasDownloadedCert ? '0.7' : '1'};" onclick="downloadCert()" ${hasDownloadedCert ? 'disabled' : ''}>
+                    ${hasDownloadedCert ? '✅ Skjal sótt' : '🏆 Sækja viðurkenningarskjal'}
+                </button>
                 <br><br>
-                <button class="btn" style="background-color: #5f6368;" onclick="location.reload()">🔄 Byrja aftur</button>
+                <button class="btn" style="background-color: #5f6368;" onclick="location.reload()">🔄 Byrja nýja umferð</button>
             `;
         } else {
             document.getElementById('app').innerHTML = `
@@ -386,10 +582,15 @@ function updateUI() {
     }
 
     const curr = exerciseData[currentIndex];
+    
+    const langSelect = document.getElementById('languageSelect');
+    const selectedLang = langSelect ? langSelect.value : 'en';
+
     document.getElementById('target').innerHTML = curr.text;
     document.getElementById('is-explanation').innerHTML = curr.is_exp;
     document.getElementById('counter').innerText = `Orð ${currentIndex + 1} af ${exerciseData.length}`;
-    document.getElementById('media-box').innerHTML = curr.translations;
+    
+    document.getElementById('media-box').innerHTML = curr.translations[selectedLang] || "Þýðing ekki til / Translation missing";
 
     const savedScore = userScores[currentIndex];
     const savedText = userSpoken[currentIndex];
@@ -460,12 +661,14 @@ if (recognition) {
         if (score === 100) {
             autoAdvanceTimer = setTimeout(() => {
                 nextExercise();
-            }, 1000); // 1 sekúndu bið
+            }, 1000); 
         }
     };
 }
 
 function downloadCert() {
+    if (hasDownloadedCert) return; 
+
     const studentNameInput = document.getElementById('studentName');
     const studentName = studentNameInput ? studentNameInput.value.trim() : "";
     
@@ -509,7 +712,7 @@ function downloadCert() {
 
     ctx.fillStyle = '#1a73e8';
     ctx.font = 'bold 26px Arial';
-    ctx.fillText('Æfing 51 - 60 algengustu orðin í íslenskum námsbókum', canvas.width / 2, 420);
+    ctx.fillText('Markorð - Lota 2 - 51-60 algengustu', canvas.width / 2, 420);
     
     ctx.fillStyle = '#34a853';
     ctx.font = 'italic 28px Arial';
@@ -525,7 +728,7 @@ function downloadCert() {
     link.href = canvas.toDataURL('image/png');
     link.click();
     
-    // Slekkur á takkanum til að koma í veg fyrir mörg skjöl
+    hasDownloadedCert = true;
     const btn = document.getElementById('cert-btn');
     if (btn) {
         btn.disabled = true;
@@ -533,6 +736,9 @@ function downloadCert() {
         btn.style.backgroundColor = "#5f6368";
         btn.style.cursor = "not-allowed";
         btn.style.opacity = "0.7";
+    }
+    if (studentNameInput) {
+        studentNameInput.disabled = true;
     }
 }
 </script>
